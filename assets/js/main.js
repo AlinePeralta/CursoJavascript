@@ -40,15 +40,15 @@ function seleccionarPokemon() {
         let eligePokemon = prompt("Hola " + nombre + ", elige el tipo de Pokémon que quieres: \n 1 - Para Tipo Fuego 🔥 \n 2 - Para Tipo Planta 🌱 \n 3 - Para Tipo Agua 💧");
 
         switch (eligePokemon) {
-            case "1":
+            case "1", "🔥":
                 pokemonElegido = fuego + "🔥"; 
                 opcionValida = true;
                 break;
-            case "2":
+            case "2","🌱":
                 pokemonElegido = planta + "🌱";
                 opcionValida = true;
                 break;
-            case "3":
+            case "3", "💧":
                 pokemonElegido = agua + "💧";
                 opcionValida = true;
                 break;

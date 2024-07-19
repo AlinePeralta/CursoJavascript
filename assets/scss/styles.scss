@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap'); 
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+$black:#0000;
+$white: #fff;
+$primario:#cc0f35;
+
+@mixin sm {
+    @media only screen and (max-width: 599px) {
+      @content;
+    }
+  }
+  
+  // Mixin para dispositivos medianos (tablets pequeñas, landscape phone)
+  @mixin md {
+    @media only screen and (min-width: 600px) and (max-width: 1023px) {
+      @content;
+    }
+  }
+  
+  // Mixin para dispositivos grandes (tablets grandes, laptops)
+  @mixin lg {
+    @media only screen and (min-width: 1024px) and (max-width: 1439px) {
+      @content;
+    }
+  }
+  
+  // Mixin para dispositivos extra grandes (monitores grandes)
+  @mixin xl {
+    @media only screen and (min-width: 1440px) {
+      @content;
+    }
+  }
+
+body{
+    font-family: "Dela Gothic One", sans-serif;
+    background-color: $primario;
+}
+
+.container{
+    color: $white;
+    font-family: "Dela Gothic One", sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    width: 100%; 
+    h1{
+       
+        font-size: 4rem;
+        font-weight: 300;
+        @include sm {
+            font-size: 2rem;
+          }
+          @include md {
+            font-size: 3rem;
+          }
+    } 
+    p{
+        font-weight:100;
+       
+    }
+
+}

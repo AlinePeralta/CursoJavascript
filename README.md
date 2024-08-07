@@ -1,2 +1,2 @@
 # Javascript
- Curso Javascript - PreEntrega1 + PeraltaAline
+ Curso Javascript - PreEntrega2 + PeraltaAline

@@ -1,78 +1,140 @@
-// Bienvenida
-alert("¡Bienvenido al pueblo paleta! 📍");
+const charmander = {
+    nombre: "Charmander",
+    tipo: "Fuego",
+    emoji: "🔥",
+    efectivoContra: ["Acero", "Insecto", "Hielo", "Hierba"],
+    debilContra: ["Roca", "Agua", "Tierra"]
+};
 
-// Definir Pokémon disponibles🕹️
-const invalido = "Pikachu";
-const fuego = "Charmander";
-const planta = "Bulbasaur";
-const agua = "Squirtle";
+const bulbasaur = {
+    nombre: "Bulbasaur",
+    tipo: "Hierba",
+    emoji: "🌱",
+    efectivoContra: ["Agua", "Tierra", "Roca"],
+    debilContra: ["Fuego", "Hielo", "Veneno", "Volador", "Insecto"]
+};
 
-// Función para validar el nombre
-function validarNombre(nombre) {
-    const nombreValido = /^[A-Za-z]{3,}$/;
-    return nombreValido.test(nombre);
+const squirtle = {
+    nombre: "Squirtle",
+    tipo: "Agua",
+    emoji: "💧",
+    efectivoContra: ["Fuego", "Tierra", "Roca"],
+    debilContra: ["Eléctrico", "Hierba"]
+};
+
+const pikachu = {
+    nombre: "Pikachu",
+    tipo: "Eléctrico",
+    emoji: "⚡",
+    efectivoContra: ["Agua", "Volador"],
+    debilContra: ["Tierra"]
+};
+
+const pokemons = [charmander, bulbasaur, squirtle, pikachu];
+
+function elegirPokemonAleatorio() {
+    const pokemonRandom = Math.floor(Math.random() * pokemons.length);
+    return pokemons[pokemonRandom];
 }
 
-// Función para preguntar si quiere volver a elegir Pokemón
-function preguntarVolverAElegir() {
-    let respuesta = prompt("¿Estás feliz con tu decisión? ✨ (sí/no) ").toLowerCase();
-    return respuesta === "no" || respuesta === "n";
+function mostrarPokemons() {
+    return "¡La batalla está por iniciar! \nElige un Pokémon:\n1. Charmander 🔥\n2. Bulbasaur 🌱\n3. Squirtle 💧\n4. Pikachu ⚡";
 }
 
-// Función para seleccionar Pokémon
-function seleccionarPokemon() {
-    let nombre = "";
-    let nombreEsValido = false;
-
-    while (!nombreEsValido) {
-        nombre = prompt("Por favor ingresa tu nombre: \n(mínimo 3 caracteres y sin números)");
-        if (validarNombre(nombre)) {
-            nombreEsValido = true;
-        } else {
-            alert("Nombre inválido. Asegúrate de que tenga al menos 3 caracteres y no contenga números.");
-        }
-    }
-
-    let pokemonElegido = "";
-    let opcionValida = false;
-
-    while (!opcionValida) {
-        let eligePokemon = prompt("Hola " + nombre + ", elige el tipo de Pokémon que quieres: \n 1 - Para Tipo Fuego 🔥 \n 2 - Para Tipo Planta 🌱 \n 3 - Para Tipo Agua 💧");
-
-        switch (eligePokemon) {
-            case "1":
-            case "🔥": 
-                pokemonElegido = fuego + "🔥"; 
-                opcionValida = true;
-                break;
-            case "2":
-            case "🌱":  
-                pokemonElegido = planta + "🌱";
-                opcionValida = true;
-                break;
-            case "3":
-            case "💧":    
-                pokemonElegido = agua + "💧";
-                opcionValida = true;
-                break;
-            default:
-                alert("Ups, Pokemón no disponible, solo nos queda " + invalido + "⚡\n¡Cuidado con su impactrueno!");
-                pokemonElegido = invalido;
-                alert("¡Te lo advertí! " + invalido + " acaba de usar impactrueno⚡");
-                opcionValida = false; 
-                break;
-        }
-
-        if (opcionValida) {
-            alert("¡Genial " + nombre + "! Has elegido a " + pokemonElegido + ".");
-            if (preguntarVolverAElegir()) {
-                opcionValida = false; 
-            }else{
-                alert( "¡Gran desición " + nombre + ", " + pokemonElegido + " será un gran compañero de aventuras.");
-            }
-        }
+function eligePokemon(eleccion) {
+    switch (eleccion) {
+        case "1":
+        case "🔥":
+            return charmander;
+        case "2":
+        case "🌱":
+            return bulbasaur;
+        case "3":
+        case "💧":
+            return squirtle;
+        case "4":
+        case "⚡":
+            return pikachu;
+        default:
+            return null;
     }
 }
 
+function mostrarAtaqueDebilidad(pokemon) {
+    return `${pokemon.nombre} (${pokemon.emoji})\n ✅ Efectivo contra: ${pokemon.efectivoContra.join(", ")}\n ❌ Débil contra: ${pokemon.debilContra.join(", ")}`;
+}
 
-seleccionarPokemon();
+function mostrarResultado(pokemonUsuario, pokemonContrincante) {
+    let resultado;
+
+    if (pokemonUsuario.efectivoContra.includes(pokemonContrincante.tipo)) {
+        resultado = `¡${pokemonUsuario.nombre} (${pokemonUsuario.emoji}) gana contra ${pokemonContrincante.nombre} (${pokemonContrincante.emoji})!`;
+    } else if (pokemonUsuario.debilContra.includes(pokemonContrincante.tipo)) {
+        resultado = `¡${pokemonUsuario.nombre} (${pokemonUsuario.emoji}) pierde contra ${pokemonContrincante.nombre} (${pokemonContrincante.emoji})!`;
+    } else {
+        resultado = `¡Es un empate entre ${pokemonUsuario.nombre} (${pokemonUsuario.emoji}) y ${pokemonContrincante.nombre} (${pokemonContrincante.emoji})!`;
+    }
+
+    let mensajeFinal;
+    if (pokemonUsuario.efectivoContra.includes(pokemonContrincante.tipo)) {
+        mensajeFinal = `¡Felicidades! Tu Pokémon ${pokemonUsuario.nombre} (${pokemonUsuario.emoji}) ha ganado la batalla 🏆`;
+    } else if (pokemonUsuario.debilContra.includes(pokemonContrincante.tipo)) {
+        mensajeFinal = `Lo siento, tu Pokémon ${pokemonUsuario.nombre} (${pokemonUsuario.emoji}) ha perdido la batalla 😞`;
+    } else {
+        mensajeFinal = `¡Empate! Ninguno de los Pokémon ganó esta batalla`;
+    }
+
+    return `${resultado}\n${mensajeFinal}`;
+}
+
+function buscarPokemonPorNombre(nombre) {
+    return pokemons.find(pokemon => pokemon.nombre.toLowerCase() === nombre.toLowerCase());
+}
+
+function filtrarPokemonsEfectivosContra(tipo) {
+    return pokemons.filter(pokemon => pokemon.efectivoContra.includes(tipo));
+}
+
+function jugar() {
+    let mensaje = mostrarPokemons();
+    let eleccion = prompt(mensaje);
+
+    const pokemonUsuario = eligePokemon(eleccion);
+    if (!pokemonUsuario) {
+        alert("Pokémon no encontrado. Intenta de nuevo.");
+        return false;
+    }
+
+    alert(mostrarAtaqueDebilidad(pokemonUsuario));
+
+    const pokemonContrincante = elegirPokemonAleatorio();
+    alert(`La computadora ha elegido a ${pokemonContrincante.nombre} (${pokemonContrincante.emoji}).`);
+
+    const resultado = mostrarResultado(pokemonUsuario, pokemonContrincante);
+    alert(resultado);
+
+    let opcion = prompt("¿Quieres jugar otra vez?\n1. Sí, eligiendo otro Pokémon 🎮\n2. No, salir ❌");
+
+    switch (opcion) {
+        case "1":
+            return false;
+        case "2":
+            return null;
+        default:
+            alert("Ups, opción no válida. Vuelve a iniciar una partida.");
+            return null;
+    }
+}
+
+function inciarJuego() {
+    let continuar = true;
+
+    while (continuar) {
+        continuar = jugar();
+    }
+
+    alert("¡Gracias por jugar! 👾");
+}
+
+inciarJuego();
+22
